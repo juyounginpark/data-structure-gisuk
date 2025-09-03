@@ -10,10 +10,6 @@ void printArr(int list[], int left, int right) {
 void sort(int list[], int n) {
     int i, j, min, temp;
     for (i = 0; i < n-1; i++) {
-void printArr(int list[], int left, int right) {
-    for(int i = left; i <= right; i++) printf("%d ", list[i]);
-    putchar('\n');
-}
         min = i;
         for (j = i + 1; j < n; j++) {
             if (list[j] < list[min]) {
