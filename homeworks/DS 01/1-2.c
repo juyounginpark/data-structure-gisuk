@@ -16,7 +16,7 @@ int main(){
     float f, *pf;
 
     MALLOC(pi, sizeof(int));
-    MALLOC(pi, sizeof(float));
+    MALLOC(pf, sizeof(float));
     *pi = 1024;
     *pf = 3.14;
     printf("an integer = %d, a float = %f\n", *pi, *pf);
