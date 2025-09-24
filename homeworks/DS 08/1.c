@@ -93,13 +93,15 @@ void queueFull()
 
     puts("array shifting...");
     
+    int temp = rear - front;
+    rear = -1;
     element now;
-    for(int i = 0; i <= rear - front; i++) {
-        queue[i] = queue[i + front + 1];
+    for(int i = 0; i < temp; i++) {
+        now = deleteq();
+        addq(now);
     }
-   
-    rear = rear - front - 1;
     front = -1;
+   
     return;
 
 }
