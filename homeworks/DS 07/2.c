@@ -65,8 +65,6 @@ int main() {
         fgets(input, sizeof(input), stdin);
         op = strtok(input, delimiter);
 
-        if(!strcmp(op, delimiter));
-
         if(!strcmp(op, "push"))
         {
             sscanf(input + strlen(op) + 1, "%d%s", &student.id, student.name);

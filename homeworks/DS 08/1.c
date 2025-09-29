@@ -96,7 +96,7 @@ void queueFull()
     int temp = rear - front;
     rear = -1;
     element now;
-    for(int i = 0; i < temp; i++) {
+    while(temp--) {
         now = deleteq();
         addq(now);
     }
