@@ -1,0 +1,34 @@
+# The abstract Data Type
+
+- 1차원 배열
+create(1, (10))
+
+- Array Create(j, list)
+	- create(2, (3, 4)) -> 3행 4열의 2차원 배열 생성
+
+- Item Retrieve(A, I)
+
+
+## Array in C
+
+- one-diemensional array
+
+int list[5]; -> list[0][1][2][3][4]
+					 i  i  i  i  i
+					 ^ i stands for int i* stands int pointer
+int *plist[5]; -> plist[0][1][2][3][4]
+						 i* i* i* i* i*
+
+## interpretations of pointers: list1, list 2
+
+int *list1, list2[5];
+list1 = list2;
+variable constant
+
+list2 == &list2[0]
+list2 + i == &list2[i]
+*(list2+i) == list2[i]
+
+## in C< array parameters have their values alterd, despite the fact that the parameter passing is done using call-by-value.
+
+
