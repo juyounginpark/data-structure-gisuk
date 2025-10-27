@@ -1,86 +1,54 @@
-/*2025002720 박주영
-본인은 이 소스 파일을 다른 사람의 소스를 복사하지 않고 직접 작성하였습니다.*/
+/*
+ * 학번: [학번]
+ * 이름: [이름]
+ * 본인은 이 소스 파일을 다른 사람의 소스를 복사하지 않고 직접 작성하였습니다.
+ */
 
 #include <stdio.h>
-#include <stdlib.h>
-int sumAry2D_f1(int ary[][3], int row, int col) {
-	int res = 0;
-	for(int i = 0; i < row; i++) {
-		for(int l = 0; l < col; l++) {
-			res += ary[i][l];
-		}
-	}
-	return res;
-}
+#include <time.h>           // [cite: 5]
+#include "selectionSort.h"  // [cite: 6]
 
-int sumAry2D_f2(int (*ary)[3], int row, int col) {
-	int res = 0;
-    for(int i = 0; i < row; i++) {
-        for(int l = 0; l < col; l++) {
-            res += ary[i][l];
-        }
+// n을 2000까지 증가시키므로 MAX_SIZE를 2001로 수정 
+#define MAX_SIZE 2001       // [cite: 7] (수정됨)
+
+void main(void) { // [cite: 8]
+    int i, n, step = 10; // [cite: 9]
+    int a[MAX_SIZE];     // [cite: 10]
+    double duration;     // [cite: 11]
+    clock_t start;       // [cite: 12]
+
+    // 파일 열기 [cite: 39, 40]
+    FILE *fp = fopen("out.txt", "w");
+    if (fp == NULL) {
+        fprintf(stderr, "파일 'out.txt'를 열 수 없습니다.\n");
+        return;
     }
-    return res;
-}
 
-int sumAry2D_f3(int ary[2][3], int row, int col) {
-	int res = 0;
-    for(int i = 0; i < row; i++) {
-        for(int l = 0; l < col; l++) {
-            res += ary[i][l];
+    // 화면 출력
+    printf("      n     time\n"); // [cite: 13, 14]
+    // 파일 출력 
+    fprintf(fp, "      n     time\n");
+
+    // n을 2000까지 증가 
+    for (n = 0; n <= 2000; n += step) { // [cite: 14, 17] (반복 조건 수정)
+
+        /* initialize with worst-case data */ // [cite: 18]
+        for (i = 0; i < n; i++) {
+            a[i] = n - i; // [cite: 20]
         }
-    }
-    return res;
-}
+        
+        start = clock(); // [cite: 21]
+        sort(a, n);      // [cite: 21]
+        duration = ((double)(clock() - start)) / CLOCKS_PER_SEC; // [cite: 22, 25]
 
-int sumAry2D_f4(int **ary, int row, int col) {
-	int res = 0;
-    for(int i = 0; i < row; i++) {
-        for(int l = 0; l < col; l++) {
-            res += ary[i][l];
-        }
-    }
-    return res;
-}
+        // 화면 출력 [cite: 24]
+        printf("%6d   %f\n", n, duration);
+        // 파일 출력 [cite: 38, 41]
+        fprintf(fp, "%6d   %f\n", n, duration);
 
-int sumAry2D_f5(int ***ary, int row, int col) {
-	int res = 0;
-    for(int i = 0; i < row; i++) {
-        for(int l = 0; l < col; l++) {
-            res += (*ary)[i][l];
-        }
+        if (n == 100) step = 100; // [cite: 24]
     }
-    return res;
-}
-void freeAry2D(int **ary, int row) {
-	for(int i = 0; i < row; i++) free(ary[i]);
-	printf("2D array - free!!\n");
-	free(ary);
-}
 
-int main(void)
-{
-	// 정적 할당의 2차원 배열(2행3열)
-	int ary2D[2][3]= { {1, 2, 3}, {4, 5, 6}};
-	// 동적 할당의 2차원 배열(2행3열)
-	int r, c;
-	int **ary = (int **) malloc(sizeof(int*) * 2);
-	for ( r = 0; r < 2; r++)
-		ary[r] = (int *) malloc( sizeof(int) * 3);
-	for ( r = 0; r < 2; r++)
-		for ( c = 0; c < 3; c++)
-			ary[r][c] = r+c;
-	// 정적 할당 배열
-	printf("sumAry2D_f1() %d\n", sumAry2D_f1(ary2D, 2, 3)); // 배열 파라미터(권장)
-	printf("sumAry2D_f2() %d\n", sumAry2D_f2(ary2D, 2, 3)); // 배열 포인터
-	printf("sumAry2D_f3() %d\n", sumAry2D_f3(ary2D, 2, 3));
-	// 동적 할당 배열
-	printf("sumAry2D_f4() %d\n", sumAry2D_f4(ary, 2, 3));
-	printf("sumAry2D_f5() %d\n", sumAry2D_f5(&ary, 2, 3));
-	// 동적 할당 배열을 sumAry2D_f1, f2, f3로 전달할 수 있을까? 테스트해보라!
-	//printf("sumAry2D_f1~f3() %d\n", sumAry2D_f1(ary, 2, 3));
-	// 정적 할당 배열을 sumAry2D_f4, f5로 전달할 수 있을까? 테스트해보라!
-	//printf("sumAry2D_f4~f5() %d\n", sumAry2D_f4(ary2D, 2, 3));
-	freeAry2D(ary, 2); // 동적 할당 배열의 메모리 해제
-	return 0;
+    fclose(fp); // [cite: 42]
+    printf("\n성능 측정 완료. 'out.txt' 파일이 생성되었습니다.\n");
 }

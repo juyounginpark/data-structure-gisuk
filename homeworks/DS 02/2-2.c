@@ -14,8 +14,6 @@ void printArr(int list[], int n) {
     putchar('\n');
 }
 
-
-
 void sort(int list[], int n) {
     int i, j, min, temp;
     for (i = 0; i < n-1; i++) {
@@ -24,8 +22,8 @@ void sort(int list[], int n) {
             if (list[j] < list[min]) {
                 min = j;
             }
-            SWAP(list[i], list[min], temp);
         }
+        SWAP(list[i], list[min], temp);
     }
 }
 
@@ -38,16 +36,17 @@ int binsearch(int list[], int left, int right, int num) {
 		case -1:
 			left = middle + 1;
 			break;
-		case 0 :
+		case 0:
 			return middle;
-		case 1 : right = middle - 1;
-
+		case 1:
+			right = middle - 1;
+			break;
 		}
 	}
 	return -1;
-
 }
-void main() {
+
+int main() {
 	int seed, n;
 	printf("input seed >> ");
 	scanf("%d", &seed);
@@ -56,7 +55,7 @@ void main() {
 	puts("\n");
 	srand(seed);
 
-	int arr[101];
+	int arr[100];
 	
 	printf("Random numbers:\n");
 	for(int i = 0; i < n; i++) {
@@ -74,12 +73,12 @@ void main() {
 	printf("Enter the number to search >> ");
 	scanf("%d", &snum);
 
-	int res = binsearch(arr, 0, n-1,snum);
+	int res = binsearch(arr, 0, n-1, snum);
 	if(res == -1) {
 		puts("The search number is not present");
-		return;
+		return 0;
 	}
-	printf("The search number is present in list[%d]\n",res );
-
+	printf("The search number is present in list[%d]\n", res);
+	
+	return 0;
 }
-
