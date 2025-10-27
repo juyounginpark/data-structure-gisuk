@@ -81,7 +81,7 @@ void erase(polyPointer *ptr) {
         *ptr = (*ptr)->link;
         free(temp);
     }
-}
+} 
 
 void cerase(polyPointer *ptr) {
     if (!*ptr) return;
