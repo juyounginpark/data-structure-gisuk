@@ -20,23 +20,17 @@ char e[81];
 
 void push(tp p){st[++top]=p;}
 tp pop(){return st[top--];}
-tp newN(char d){
-    tp p=(tp)malloc(sizeof(n));
-    p->d=d;p->l=p->r=NULL;
-    return p;
-}
+tp newN(char d){tp p=(tp)malloc(sizeof(n));p->d=d;p->l=p->r=NULL;return p;}
 
 tp create(){
-    FILE *f=fopen("input.txt","r");
-    fgets(e,81,f);fclose(f);
+    printf("the length of input string should be less than 80\n");
+    printf("input string (postfix expression) : ");
+    scanf("%s", e);
+    printf("creating its binary tree\n\n");
     tp p;
-    for(int i=0;e[i]&&e[i]!='\n';i++){
+    for(int i=0;e[i];i++){
         if(isalpha(e[i])) push(newN(e[i]));
-        else{
-            p=newN(e[i]);
-            p->r=pop();p->l=pop();
-            push(p);
-        }
+        else{p=newN(e[i]);p->r=pop();p->l=pop();push(p);}
     }
     return pop();
 }
@@ -47,7 +41,7 @@ void post(tp p){if(p){post(p->l);post(p->r);printf("%c",p->d);}}
 
 int main(){
     tp r=create();
-    in(r);printf("\n");
-    pre(r);printf("\n");
-    post(r);printf("\n");
+    printf("inorder traversal      : "); in(r); printf("\n");
+    printf("preorder traversal     : "); pre(r); printf("\n");
+    printf("postorder traversal    : "); post(r); printf("\n");
 }
